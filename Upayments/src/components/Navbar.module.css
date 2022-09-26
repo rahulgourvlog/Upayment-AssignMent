@@ -1,0 +1,44 @@
+
+
+.Navbar{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color:#0D0D0D;
+   display: flex;
+    height: 65px;
+    align-items: center;
+   
+    width: 100%;
+
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    z-index: 10;
+}
+ 
+  
+
+  
+
+  
+
+  .link {
+    font-size: 20px;
+
+    list-style: none;
+    text-decoration: none;
+  }
+  .link:active {
+    color:red;
+    cursor: pointer;
+  }
+  .link:hover {
+    color:rgb(0, 21, 255);
+    cursor: pointer;
+  }
+  .fav{
+    color: rgb(221, 21, 21);
+  }
