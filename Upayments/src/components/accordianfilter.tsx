@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import {
   Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  FormControl,
+  FormLabel,
+  Stack,
+  Flex
+} from '@chakra-ui/react'
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 
-import { FilterProduct, getProductsData, ProductsSuccess } from "../Reduxts/actions";
+import { FilterProduct, getProductsData, ProductFilterArr, ProductsSuccess } from "../Reduxts/actions";
 
 import { useAppDispatch } from "../state/Appdispatch";
 import { token } from "./Token";
 import { Producttypes } from "../state/ProductsState";
 import { useSelector } from "react-redux";
 
+import { Box} from '@chakra-ui/react'
+import { GettingFilterProduct } from "../Reduxts/actionTypes";
 const Accordianfilter = () => {
-  const { Products } = useSelector((state: any) => state.reducer);
-  console.log(Products )
+  const { Products, FilteredArr } = useSelector((state: any) => state.reducer);
+  
   const [cat, Setcat] = useState([]);
   const dispatch = useAppDispatch();
   const getcat = async () => {
@@ -34,6 +40,10 @@ const Accordianfilter = () => {
 
   const [filterCategort, setFiltercat] = useState<String[]>([]);
 
+
+
+
+
   const getFilter = (e: any) => {
     const index = filterCategort.indexOf(e.target.value);
 
@@ -47,18 +57,25 @@ const Accordianfilter = () => {
     }
   };
 
+  
+
+  
+
+
+
+
 
   const filterProducts=async ()=>{ 
     if(filterCategort.length===0)
     { 
-      dispatch(ProductsSuccess(Products)); 
+      dispatch(ProductFilterArr(Products)); 
     }else
     { 
       const filterProduct= await Products.filter((prod:Producttypes)=>{ 
         return filterCategort.indexOf(prod.category)!==-1; 
       }) 
        console.log(filterProduct,'filter prod'); 
-          dispatch(ProductsSuccess(filterProduct)); 
+          dispatch(ProductFilterArr(filterProduct)); 
     } 
   }
   
@@ -83,33 +100,36 @@ const Accordianfilter = () => {
         <p className="text-4xl mb-2">Product Page</p>
         <div className="container">
           <div className="sideBarOptions">
-          <Accordion disableGutters={true}>
-              <AccordionSummary
-                id="panel6-header"
-                 
-                expandIcon={<ExpandMoreIcon />}
-              >
-                Category
-              </AccordionSummary>
-              <AccordionDetails className="checkBoxesCon">
-               {cat.map((el:any, i) => {
+
+          <Accordion defaultIndex={[0]} allowMultiple>
+  <AccordionItem>
+    <h2>
+      <AccordionButton>
+        <Box flex='1' textAlign='left'>
+        Category
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    {cat.map((el:any, i) => {
                   return (
-                    <FormControlLabel
-                      label={el.name}
-                      key={i}
-                      control={
-                        <Checkbox
-                          value={el.name}
+                    <Stack mb={3} key={i} spacing={[1, 5]} direction={['column', 'row']}>
+                     
+  <Checkbox size='sm' colorScheme='red' value={el.name}
+                          
                           checked={filterCategort.includes(el.name)}
-                          onChange={getFilter}
-                        />
-                      }
-                    />
+                          onChange={getFilter}>{el.name}</Checkbox>
+                         
+                     </Stack>
                   );
                 })}  
-                
-              </AccordionDetails>
-            </Accordion>
+    </AccordionPanel>
+  </AccordionItem>
+
+ 
+</Accordion>
+          
           </div>
         </div>
       </div>

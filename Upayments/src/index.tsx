@@ -6,17 +6,20 @@ import './index.css';
 import {BrowserRouter} from "react-router-dom"
 
 import {store} from './Reduxts/store';
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <ChakraProvider>
   <BrowserRouter>
  <Provider store={store}>
 <App />
 </Provider> 
 </BrowserRouter>
+</ChakraProvider>
 );
 
 

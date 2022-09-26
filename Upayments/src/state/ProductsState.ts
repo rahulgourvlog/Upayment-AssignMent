@@ -21,6 +21,6 @@ export default interface ProductsState {
     Products:Array<Producttypes> ,
     isLoading: boolean,
     isError:boolean,
-  
+    FilteredArr:Array<Producttypes>
   }
 
