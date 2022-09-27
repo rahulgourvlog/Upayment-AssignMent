@@ -1,10 +1,10 @@
 # Upayment-AssignMent
 
 # tech Stack
-Tailwind css
-Chakra ui
-React Js
-Redux
+Tailwind css ,
+Chakra ui,
+React Js, 
+Redux,
 Typescript
 
 # Product Page
